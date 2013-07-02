@@ -1,0 +1,9 @@
+/plugins/target/
+/target/
+/nbactions.xml
+/dependency-reduced-pom.xml
+.idea/
+*.iml
+*.ipr
+*.iws
+/logs/
