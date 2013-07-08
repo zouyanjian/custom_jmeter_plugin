@@ -357,7 +357,13 @@ public class ZkUtil {
 		}
 		return null;
 	}
-	
+
+    /**
+     * 获取当前的Monitor IP地址 字符串
+     * @param client
+     * @return
+     * @throws Exception
+     */
 	public static String getActiveMonitorIp(ZkClient client) throws Exception {
 		String monitorService = "/monitor/services";
 		List<String> monitors = client.getChildrenKeys(monitorService);
@@ -385,6 +391,12 @@ public class ZkUtil {
 		return loaders;
 	}
 
+    /**
+     * 传入ZK客户端获取获取所有Monitor节点的IP:Port 字符串信息
+     * @param client
+     * @return
+     * @throws Exception
+     */
 	public static String[] getAllMonitors(ZkClient client) throws Exception {
 		String monitorService = "/monitor/services";
 		List<String> monitorList = client.getChildrenKeys(monitorService);

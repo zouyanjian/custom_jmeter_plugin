@@ -1,6 +1,5 @@
 package com.taobao.garuda.demo.processor;
 
-import com.google.common.base.Charsets;
 import org.apache.jmeter.processor.PostProcessor;
 import org.apache.jmeter.testelement.AbstractTestElement;
 import org.apache.jmeter.testelement.TestElement;
@@ -22,10 +21,10 @@ public class LoadDataPostProcessor  extends AbstractTestElement implements
 
         String responseString = threadContext.getPreviousResult().getResponseDataAsString();
         System.out.println("previous result:"+responseString);
-        try {
-            threadContext.getPreviousResult().setResponseData("12123123".getBytes(Charsets.UTF_8));
-        } catch (Exception e) {
-            System.out.println(e.getStackTrace());
-        }
+//        try {
+//            threadContext.getPreviousResult().setResponseData("12123123".getBytes(Charsets.UTF_8));
+//        } catch (Exception e) {
+//            System.out.println(e.getStackTrace());
+//        }
     }
 }

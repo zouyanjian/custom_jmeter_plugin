@@ -9,9 +9,6 @@ import java.util.zip.Checksum;
  * Time: 上午10:04
  */
 public class GarudaUtil {
-
-
-
     public static long getCRC32(String value) {
         Checksum checksum = new CRC32();
         byte[] bytes = value.getBytes();

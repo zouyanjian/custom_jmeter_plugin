@@ -24,11 +24,18 @@ public class ClusterUtil {
 		return retVal;
 	}
 	
-	public static String submitSql(String cluster, String sql) {
+	public static String submitSql(String cluster, String sql,String consoleIPAndPort) {
 		HttpClient client = new HttpClient();
-		String retVal = client.post("http://10.235.168.153:8080/garuda-console/controller/query", "sql=" + sql + "&__zk_cluster_name__=" + cluster);
+        String retVal = client.post("http://" + consoleIPAndPort + "/garuda-console/controller/query", "sql=" + sql + "&__zk_cluster_name__=" + cluster);
 		return retVal;
 	}
+
+    public static String submitSql(String cluster,String sql){
+        String consoleIPAndPort = "10.235.168.153:8080";
+        return submitSql(cluster,sql,consoleIPAndPort);
+    }
+
+
 	
     public static String[] decodeNodeName(String nodeName) {
     	if ( nodeName.length() > 0 ) {
@@ -106,11 +113,16 @@ public class ClusterUtil {
 	}
 
 	public static String cleanCache(String cluster) {
-		HttpClient client = new HttpClient();
-		String retVal = client.get("http://10.235.168.153:8080/garuda-console/controller/clearcache?__zk_cluster_name__=garuda2", "__zk_cluster_name__=" + cluster);
-		return retVal;
+        String consoleIpAndPort = "10.235.168.153:8080";
+		return cleanCache(cluster,consoleIpAndPort);
 	}
-	
+
+    public static String cleanCache(String cluster,String consoleIpAndPort){
+        HttpClient client = new HttpClient();
+        String retVal = client.get("http://" + consoleIpAndPort + "/garuda-console/controller/clearcache", "__zk_cluster_name__=" + cluster);
+        return retVal;
+    }
+
 	public static void main(String[] args) {
 		System.out.println(submitSql("garuda2", "select count(user_id) as count from golden.tcif_hjc_cat1_d where 1=1"));
 	}
