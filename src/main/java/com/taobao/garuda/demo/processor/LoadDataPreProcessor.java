@@ -6,6 +6,8 @@ import org.apache.jmeter.engine.util.NoThreadClone;
 import org.apache.jmeter.processor.PreProcessor;
 import org.apache.jmeter.testelement.AbstractTestElement;
 import org.apache.jmeter.testelement.TestStateListener;
+import org.apache.jmeter.testelement.property.CollectionProperty;
+import org.apache.jmeter.testelement.property.JMeterProperty;
 import org.apache.jmeter.threads.JMeterContextService;
 import org.apache.jmeter.threads.JMeterVariables;
 import org.apache.zookeeper.KeeperException;
@@ -33,9 +35,15 @@ public class LoadDataPreProcessor extends AbstractTestElement implements PreProc
         LoadDataPreProcessor processor = new LoadDataPreProcessor();
         processor.testStarted();
     }
-    private String zkURL ="10.232.36.107:12181,10.232.36.107:12182,10.232.36.107:12183/stg";
 
+    public static final String ZK_URL = "zkURL";
+    public static final String ENTIREONLINE_TABLE_STR = "entireOnlineTables";
+
+
+
+    private String zkURL ="10.232.36.107:12181,10.232.36.107:12182,10.232.36.107:12183/stg";
     private static final String[] entireOnlineTables = new String[]{"test4dmp.test"};
+    public static final String DATA_PROPERTY = "fileMetas";
     private ZkClient zkClient;
     @Override
     public void process() {
@@ -194,5 +202,21 @@ public class LoadDataPreProcessor extends AbstractTestElement implements PreProc
     @Override
     public void testEnded(String s) {
         System.out.println("pre deal with...... testEnded("+s+")..");
+    }
+
+    /**
+     * 从Properties文件中获取Table设定FileMetas
+     * @return
+     */
+    public JMeterProperty getSamplerSettings() {
+        return getProperty(DATA_PROPERTY);
+    }
+
+    /**
+     * 设置Data到Properties 文件中....
+     * @param rows
+     */
+    public void setData(CollectionProperty rows) {
+        setProperty(rows);
     }
 }
